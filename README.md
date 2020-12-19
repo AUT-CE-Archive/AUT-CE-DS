@@ -1,2 +1,2 @@
 # AUT-CE-DS
-A repository for my Data Structures &amp; Algorithms course
+A repository for Data Structures &amp; Algorithms course in Amirkabir University of Technology
