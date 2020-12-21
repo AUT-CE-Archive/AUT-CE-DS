@@ -1,10 +1,10 @@
 '''
-Implementation of Dooubly linked list
+Implementation of Depth First Search
 Created by: 		Keivan Ipchi Hagh
 Creation data:		Monday, November 2, 2020
 GitHub:				https://github.com/keivanipchihagh
 
-Purpose of this data structure is to have the minimum possible time complexity for each operation.
+Purpose of this algorithm is to have the minimum possible time complexity
 Modify the code for your own use.
 '''
 
@@ -20,54 +20,43 @@ class Graph:
 
 		self.graph[edge] = nodes
 
-	def DFS(self, vertex):
-		''' Depth First Search Algortihm - Time complexity: O(V + E) where V is the number of vertices and E is the number of edges in the graph '''
+	def depth_first_search(self, vertex, visited):
+		''' Recursive PFS algorithm '''
 
-		def DFS(self, vertex, visited):
-			''' Recursive PFS algorithm '''
+		# Mark vertex as visited
+		visited.add(vertex)
 
-			# Mark vertex as visited
-			visited.add(vertex)
+		# Print edges value
+		print(vertex, end = ' ')
 
-			# Print edges value
-			print(vertex, end = ' ')
+		# Check all adjacent vertecies of the vertex
+		for adjacent in self.graph[vertex]:
 
-			# Check all adjacent vertecies of the vertex
-			for adjacent in self.graph[vertex]:
+			if adjacent not in visited:
+				self.depth_first_search(adjacent, visited)
 
-				if adjacent not in visited:
-					DFS(self, adjacent, visited)
+
+	def DFS_connected_graph(self, vertex):
+		''' Depth First Search Algortihm for a connected graph - Time complexity: O(V + E) where V is the number of vertices and E is the number of edges in the graph '''
 
 		# Create a list to store visited status (Add one extra False for the vertex itself)
 		visited = set()
 
-		DFS(self, vertex, visited)
+		self.depth_first_search(vertex, visited)
 		print()
 
-	def DFS_all(self):
-		''' Depth First Search Algortihm - Time complexity: O(V + E) where V is the number of vertices and E is the number of edges in the graph '''
-
-		def DFS(self, vertex, visited):
-			''' Recursive PFS algorithm '''
-
-			# Mark vertex as visited
-			visited.add(vertex)
-
-			# Print edges value
-			print(vertex, end = ' ')
-
-			# Check all adjacent vertecies of the vertex
-			for adjacent in self.graph[vertex]:
-
-				if adjacent not in visited:
-					DFS(self, adjacent, visited)
+	def DFS_disconnected_graph(self, vertex):
+		''' Depth First Search Algortihm for a disconnected graph - Time complexity: O(V + E) where V is the number of vertices and E is the number of edges in the graph '''
 
 		# Create a list to store visited status (Add one extra False for the vertex itself)
 		visited = set()
+
+		# First run the DSF for the vertex to traverse the connected vertesis
+		self.depth_first_search(vertex, visited)
 
 		for vertex in self.graph.keys():
 			if vertex not in visited:
-				DFS(self, vertex, visited)
+				self.depth_first_search(vertex, visited)
 
 		print()
 
@@ -79,6 +68,6 @@ graph.add_edge(0, [1, 2])
 graph.add_edge(1, [2])
 graph.add_edge(2, [0, 3])
 graph.add_edge(3, [3])
-graph.add_edge(4, [])
-# graph.DFS(2)
-graph.DFS_all()
+graph.add_edge(4, [])	# Disconnected vertex
+# graph.DFS_connected_graph(2)
+graph.DFS_disconnected_graph(2)
