@@ -30,7 +30,7 @@ class MaxHeap:
 
 		if largest != index:
 			self.array[index], self.array[largest] = self.array[largest], self.array[index]			
-			heapify(largest)
+			self.heapify(largest)
 
 
 	def insert(self, value):
